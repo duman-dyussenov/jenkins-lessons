@@ -33,7 +33,7 @@ pipeline {
         stage('build docker image'){
             steps{
                 dir('lesson-1'){
-                    sh 'docker build -t dumandyussenov/jenkins-image:0.1 .'
+                    sh 'docker build -t dumandyussenov/jenkins-image:0.4 .'
                 }
             }
         }
@@ -41,14 +41,14 @@ pipeline {
             steps{
                 withDockerRegistry(credentialsId: 'dockerhub-cred-dumandyussenov', url: 'https://index.docker.io/v1/') {
                     sh '''
-                        docker push dumandyussenov/jenkins-image:0.1
+                        docker push dumandyussenov/jenkins-image:0.4
                     '''
                 }           
             }
         }
         stage('Delete docker image locally'){
             steps{
-                sh 'docker rmi dumandyussenov/jenkins-image:0.1'
+                sh 'docker rmi dumandyussenov/jenkins-image:0.4'
             }
         }
     }
